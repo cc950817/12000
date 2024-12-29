@@ -305,59 +305,68 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Dim a, b(99), c As Integer
+Dim BluetoothConnected As Boolean
 
 Private Sub Command1_Click(Index As Integer)
-a = Index
-c = 0
+    a = Index
+    c = 0
 End Sub
 
 Private Sub display(no)
-For i = 0 To 7
-   If no Mod 2 = 1 And a = 1 Then G(i).FillColor = vbGreen
-   If no Mod 2 = 1 And a = 2 Then R(i).FillColor = vbRed
-   no = no \ 2
-Next i
+    For i = 0 To 7
+        If no Mod 2 = 1 And a = 1 Then G(i).FillColor = vbGreen
+        If no Mod 2 = 1 And a = 2 Then R(i).FillColor = vbRed
+        no = no \ 2
+    Next i
 End Sub
+
 Private Sub Command2_Click()
-If MSComm1.PortOpen Then
-   MSComm1.Output = "R0"
-   MSComm1.Output = "G0"
-   MSComm1.PortOpen = False
-   Command2.Caption = "Connect Bluetooth"
-Else
-   MSComm1.PortOpen = True
-   Command2.Caption = "Disconnect Bluetooth"
-   MSComm1.Output = "R0"
-   MSComm1.Output = "G0"
-End If
+    If BluetoothConnected Then
+        Debug.Print "Output: R0"
+        Debug.Print "Output: G0"
+        BluetoothConnected = False
+        Command2.Caption = "Connect Bluetooth"
+    Else
+        BluetoothConnected = True
+        Command2.Caption = "Disconnect Bluetooth"
+        Debug.Print "Output: R0"
+        Debug.Print "Output: G0"
+    End If
 End Sub
 
 Private Sub Form_Load()
-
+    BluetoothConnected = False
 End Sub
 
 Private Sub Timer1_Timer()
-b(0) = 1
-b(1) = 2
-b(2) = 4
-b(3) = 8
-b(4) = &H10
-b(5) = &H20
-b(6) = &H40
-b(7) = &H80
-Label1.Caption = "Current Time:" & Time$
-For i = 0 To 7
-    G(i).FillColor = vbWhite
-    R(i).FillColor = vbWhite
-Next i
-If MSComm1.PortOpen Then
-   For i = 0 To 7
-       G(i).FillColor = RGB(0, 128, 0)
-       R(i).FillColor = RGB(128, 0, 0)
-   Next i
-   If a = 1 Then MSComm1.Output = "G" & b(c): display (b(c))
-   If a = 2 And c <= 8 Then MSComm1.Output = "R" & 2 ^ c: display (2 ^ c)
-End If
-If a = 3 Then End
-If c > 15 Then c = 15 Else c = c + 1
+    b(0) = 1
+    b(1) = 2
+    b(2) = 4
+    b(3) = 8
+    b(4) = &H10
+    b(5) = &H20
+    b(6) = &H40
+    b(7) = &H80
+    Label1.Caption = "Current Time:" & Time$
+    For i = 0 To 7
+        G(i).FillColor = vbWhite
+        R(i).FillColor = vbWhite
+    Next i
+    If BluetoothConnected Then
+        For i = 0 To 7
+            G(i).FillColor = RGB(0, 128, 0)
+            R(i).FillColor = RGB(128, 0, 0)
+        Next i
+        If a = 1 Then
+            Debug.Print "Output: G" & b(c)
+            display (b(c))
+        End If
+        If a = 2 And c <= 8 Then
+            Debug.Print "Output: R" & 2 ^ c
+            display (2 ^ c)
+        End If
+    End If
+    If a = 3 Then End
+    If c > 15 Then c = 15 Else c = c + 1
 End Sub
+
