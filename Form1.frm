@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
+Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "mscomm32.ocx"
 Begin VB.Form Form1 
    BackColor       =   &H00FFFFFF&
    Caption         =   "電腦硬體裝修乙級第一站 第1題"
@@ -304,21 +304,20 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim A, B(99), c As Integer
+Dim a, b(99), c As Integer
 
 Private Sub Command1_Click(Index As Integer)
-A = Index
+a = Index
 c = 0
 End Sub
 
 Private Sub display(no)
 For i = 0 To 7
-   If no Mod 2 = 1 And A = 1 Then G(i).FillColor = RGB(0, 255, 0)
-   If no Mod 2 = 1 And A = 2 Then R(i).FillColor = RGB(255, 0, 0)
+   If no Mod 2 = 1 And a = 1 Then G(i).FillColor = vbGreen
+   If no Mod 2 = 1 And a = 2 Then R(i).FillColor = vbRed
    no = no \ 2
 Next i
 End Sub
-
 Private Sub Command2_Click()
 If MSComm1.PortOpen Then
    MSComm1.Output = "R0"
@@ -333,15 +332,19 @@ Else
 End If
 End Sub
 
+Private Sub Form_Load()
+
+End Sub
+
 Private Sub Timer1_Timer()
-B(0) = 1
-B(1) = 2
-B(2) = 4
-B(3) = 8
-B(4) = &H10
-B(5) = &H20
-B(6) = &H40
-B(7) = &H80
+b(0) = 1
+b(1) = 2
+b(2) = 4
+b(3) = 8
+b(4) = &H10
+b(5) = &H20
+b(6) = &H40
+b(7) = &H80
 Label1.Caption = "Current Time:" & Time$
 For i = 0 To 7
     G(i).FillColor = vbWhite
@@ -352,9 +355,9 @@ If MSComm1.PortOpen Then
        G(i).FillColor = RGB(0, 128, 0)
        R(i).FillColor = RGB(128, 0, 0)
    Next i
-   If A = 1 Then MSComm1.Output = "G" & B(c): display (B(c))
-   If A = 2 And c <= 8 Then MSComm1.Output = "R" & 2 ^ c: display (2 ^ c)
+   If a = 1 Then MSComm1.Output = "G" & b(c): display (b(c))
+   If a = 2 And c <= 8 Then MSComm1.Output = "R" & 2 ^ c: display (2 ^ c)
 End If
-If A = 3 Then End
+If a = 3 Then End
 If c > 15 Then c = 15 Else c = c + 1
 End Sub
