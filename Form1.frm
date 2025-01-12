@@ -18,7 +18,7 @@ Begin VB.Form Form1
          Name            =   "新細明體"
          Size            =   12
          Charset         =   136
-         Weight          =   700
+         Weight          =   400
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
@@ -44,10 +44,9 @@ Begin VB.Form Form1
       Top             =   5280
    End
    Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFFFFF&
       Caption         =   "EXIT"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "新細明體"
          Size            =   14.25
          Charset         =   0
          Weight          =   400
@@ -64,10 +63,9 @@ Begin VB.Form Form1
       Width           =   1995
    End
    Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFFFFF&
       Caption         =   "Red LED"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "新細明體"
          Size            =   14.25
          Charset         =   0
          Weight          =   400
@@ -84,10 +82,9 @@ Begin VB.Form Form1
       Width           =   3000
    End
    Begin VB.CommandButton Command1 
-      BackColor       =   &H00FFFFFF&
       Caption         =   "Green LED"
       BeginProperty Font 
-         Name            =   "Arial"
+         Name            =   "新細明體"
          Size            =   14.25
          Charset         =   0
          Weight          =   400
